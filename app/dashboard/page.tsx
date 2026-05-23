@@ -1,12 +1,28 @@
+"use client"
+
+import Header from "@/components/header"
+import TransactionTable from "@/components/transaction-table"
+import BalanceCard from "@/components/balance-card"
+import CardPanel from "@/components/card-panel"
+
+
+
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-2xl font-bold text-foreground">
-        Welcome to the Dashboard
-      </h1>
-      <p className="text-gray-500 mt-2">
-        You are logged in!
-      </p>
+    <div>
+        <Header />
+        <div className="flex gap-6">
+        {/* Left Column */}
+        <div className="flex-1">
+            <BalanceCard />
+            <TransactionTable />
+        </div>
+      {/* Right Column */}
+      <CardPanel />
+      
+
     </div>
+    </div>
+    
   )
 }

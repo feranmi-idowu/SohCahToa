@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
   const response = NextResponse.json({
     accessToken,
     refreshToken,
-    expiresIn: 360, //6minutes
+    expiresIn: 120, //6minutes
     user: {
       id: user.id,
       role: user.role,
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 360,
+    maxAge: 120,
     path: "/",
   })
 
