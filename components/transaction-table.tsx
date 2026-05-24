@@ -21,7 +21,7 @@ const TABS: { label: string; value: Tab }[] = [
   { label: "Medicals", value: "medicals" },
 ]
 
-// Hardcoded role for now — in real app comes from auth context
+// Hardcoded role for now  in real app comes from auth context
 const USER_ROLE = "admin"
 
 export default function TransactionTable() {
@@ -30,6 +30,7 @@ export default function TransactionTable() {
   const [error, setError] = useState("")
   const [page, setPage] = useState(1)
   const [activeTab, setActiveTab] = useState<Tab>("all")
+  // Detail panel
   const [selected, setSelected] = useState<Transaction | null>(null)
   const [flagLoading, setFlagLoading] = useState(false)
   const [flagError, setFlagError] = useState("")

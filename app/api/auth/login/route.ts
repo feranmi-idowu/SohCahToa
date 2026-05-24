@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // tokens
+  //  this generate tokens
   const accessToken = `access_${user.id}_${Date.now()}`
   const refreshToken = `refresh_${user.id}_${Date.now()}`
 
@@ -59,11 +59,21 @@ export async function POST(request: NextRequest) {
 
   // setting the token as a secure cookie
   response.cookies.set("accessToken", accessToken, {
+    httpOnly: true, // JS cannot read this — XSS protection
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict", // CSRF protection — cookie not sent on cross-site requests
+    maxAge: 120, // 2 minutes short-lived access token enough to log in
+    path: "/",
+  })
+
+  // refreshToken cookie — longer-lived
+  response.cookies.set("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 120,
+    maxAge: 60 * 60 * 24,  // 24 hours
     path: "/",
+
   })
 
   return response
