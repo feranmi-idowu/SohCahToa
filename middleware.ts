@@ -1,24 +1,32 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest, NextResponse,  } from "next/server"
+import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
 
-  // get tokens from cookies
   const accessToken = request.cookies.get("accessToken")?.value
   const refreshToken = request.cookies.get("refreshToken")?.value
+  const expiresAt = Date.now() + 60 * 1000;
+  request.cookies.get("expires_at")?.value;
+  const isExpired = Date.now() > Number(expiresAt);
 
-  // then check if route needs protection
   const isProtectedRoute = request.nextUrl.pathname.startsWith("/dashboard")
   if (!isProtectedRoute) {
     return NextResponse.next()
   }
 
-  //  if access token exists, let them through
   if (accessToken) {
     return NextResponse.next()
   }
 
-  // when there is no access token, but refresh token exists then try to silently refresh
-  if (!accessToken && refreshToken) {
+  
+if (!accessToken || !expiresAt) {
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
+  }
+
+
+  if (isExpired) {
     try {
       const refreshResponse = await fetch(
         new URL("/api/auth/refresh", request.url),
@@ -30,12 +38,10 @@ export async function middleware(request: NextRequest) {
         }
       )
 
-      // refresh succeeded then let them through
       if (refreshResponse.ok) {
         const response = NextResponse.next()
         const data = await refreshResponse.json()
 
-        // set the new access token cookie
         response.cookies.set("accessToken", data.accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
@@ -44,6 +50,13 @@ export async function middleware(request: NextRequest) {
           path: "/",
         })
 
+        response.cookies.set("expires_at", expiresAt.toString(), {
+          httpOnly: true,
+          secure: true,
+          sameSite: "strict",
+          path: "/",
+        });
+
         return response
       }
     } catch (error) {
@@ -51,12 +64,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Step 6 — Both tokens missing or refresh failed → redirect to login
   const response = NextResponse.redirect(
     new URL("/login", request.url)
   )
 
-  // Clear any remaining cookies
   response.cookies.delete("accessToken")
   response.cookies.delete("refreshToken")
 

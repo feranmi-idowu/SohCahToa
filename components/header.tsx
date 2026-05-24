@@ -5,9 +5,7 @@ import { SearchNormal1, Notification } from "iconsax-react"
 export default function Header() {
   return (
     <div className="flex items-center justify-between w-full mb-6 bg-white">
-      
       <div className="flex items-center gap-3">
-        {/* profile avatar */}
         <div className="w-[44px] h-[44px] relative flex-shrink-0">
           <Image 
             src="/images/profile.jpg"
@@ -16,7 +14,6 @@ export default function Header() {
             className="rounded-[28px] object-cover"
           />
         </div>
-
         <div>
           <p className="text-gray-400 text-sm flex items-center gap-1">
             Good morning <span role="img" aria-label="sunny">🌤️</span>
@@ -27,9 +24,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* search bar and notification */}
       <div className="flex items-center gap-4">
-        
         <div className="relative flex items-center">
           <SearchNormal1 
           size={20} color="#8C8C8C" variant="Linear"
@@ -43,8 +38,6 @@ export default function Header() {
             ⌘K
           </span>
         </div>
-
-        {/* notification */}
         <button className="p-2 text-gray-500 hover:text-gray-700 transition-colors">
           <Notification 
           size={20} color="#232323" variant="Linear"

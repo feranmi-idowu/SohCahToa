@@ -29,8 +29,6 @@ export default function Sidebar() {
 
   return (
     <aside className="w-56 min-h-screen bg-white border-r border-gray-100 flex flex-col py-6 px-4">
-
-      {/* logo */}
       <div className="mb-10 px-2">
         <Image 
         src="/images/logo.png"
@@ -39,22 +37,17 @@ export default function Sidebar() {
         height={44}
         />
       </div>
-
-      {/* nav items */}
+      
       <nav className="flex flex-col gap-1">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href
           const IconComponent = item.icon
-
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-                ${isActive
-                  ? "bg-gray-100 text-brand"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-foreground"
-                }`}
+                ${isActive ? "bg-gray-100 text-brand": "text-gray-500 hover:bg-gray-50 hover:text-foreground"}`}
             >
               <IconComponent
                 size={18}
@@ -67,7 +60,6 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* bottom  */}
       <div className="mt-auto">
         <Link
           href="/dashboard/support"

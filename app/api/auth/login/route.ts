@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// users database
+
 const USERS = [
   {
     id: "user_1",
@@ -16,11 +16,11 @@ const USERS = [
   },
 ]
 
-// post /api/auth/login
 export async function POST(request: NextRequest) {
 
   const body = await request.json()
   const { email, password } = body
+  const expiresAt = Date.now() + 60 * 1000;
 
   if (!email || !password) {
     return NextResponse.json(
@@ -29,12 +29,11 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // finds the user in USERS/database and make sure user-email corresponds to the user password
+  
   const user = USERS.find(
     (u) => u.email === email && u.password === password
   )
 
-  // and if no user found then return error
   if (!user) {
     return NextResponse.json(
       { error: "Invalid email or password" },
@@ -42,39 +41,43 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  //  this generate tokens
+
   const accessToken = `access_${user.id}_${Date.now()}`
   const refreshToken = `refresh_${user.id}_${Date.now()}`
 
-  //  what API returns according to what is in section 1; 1.1
   const response = NextResponse.json({
     accessToken,
     refreshToken,
-    expiresIn: 120, //6minutes
+    expiresIn: 120,
     user: {
       id: user.id,
       role: user.role,
     },
   })
 
-  // setting the token as a secure cookie
   response.cookies.set("accessToken", accessToken, {
-    httpOnly: true, // JS cannot read this — XSS protection
+    httpOnly: true, 
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict", // CSRF protection — cookie not sent on cross-site requests
-    maxAge: 120, // 2 minutes short-lived access token enough to log in
+    sameSite: "strict", 
+    maxAge: 120, 
     path: "/",
   })
 
-  // refreshToken cookie — longer-lived
   response.cookies.set("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 60 * 60 * 24,  // 24 hours
+    maxAge: 360,  
     path: "/",
 
   })
+
+  response.cookies.set("expires_at", expiresAt.toString(), {
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    path: "/",
+  });
 
   return response
 }

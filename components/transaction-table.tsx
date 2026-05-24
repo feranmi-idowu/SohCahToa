@@ -44,7 +44,7 @@ export default function TransactionTable() {
           pageSize: "5",
           status: "all",
         })
-        const res = await fetch(`/api/transactions?${params}`)
+        const res = await fetch(`/api/transactions?${params}`, {cache: "no-store"})
         const json = await res.json()
         setData(json)
       } catch (err) {
@@ -121,8 +121,6 @@ export default function TransactionTable() {
 
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-6">
-
-      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-sm font-semibold text-foreground">
           FX transactions
@@ -132,7 +130,6 @@ export default function TransactionTable() {
         </button>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-2 mb-6">
         {TABS.map((tab) => (
           <button
@@ -152,28 +149,24 @@ export default function TransactionTable() {
         ))}
       </div>
 
-      {/* Loading State */}
       {loading && (
         <div className="py-12 text-center text-gray-400 text-sm">
           Loading transactions...
         </div>
       )}
 
-      {/* Error State */}
       {error && (
         <div className="py-12 text-center text-red-500 text-sm">
           {error}
         </div>
       )}
 
-      {/* Empty State */}
       {!loading && !error && data?.transactions.length === 0 && (
         <div className="py-12 text-center text-gray-400 text-sm">
           No transactions found
         </div>
       )}
 
-      {/* Transaction List */}
       {!loading && !error && data && data.transactions.length > 0 && (
         <div className="flex flex-col gap-1">
           {data.transactions.map((txn) => (
@@ -192,12 +185,12 @@ export default function TransactionTable() {
                     <Repeat
                       size={18}
                       color={txn.type === "credit" ? "#16a34a" : "#F97316"}
-                      variant="Bold"
+                      variant="Linear"
                     />
                   ) : txn.type === "credit" ? (
-                    <ImportCircle size={18} color="#16a34a" variant="Bold" />
+                    <ImportCircle size={18} color="#16a34a" variant="Linear" />
                   ) : (
-                    <ExportCircle size={18} color="#F97316" variant="Bold" />
+                    <ExportCircle size={18} color="#F97316" variant="Linear" />
                   )}
                 </div>
 

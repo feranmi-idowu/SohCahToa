@@ -1,5 +1,11 @@
 import { ImportCircle, ExportCircle } from "iconsax-react";
 
+const CardTransaction = [
+  { label: "Transfer to Ruth", date: "Fri, Apr 18, 2025 • 7:32PM", amount: "-$7.64", credit: false },
+  { label: "Wallet to wallet", date: "Sat, Mar 2, 2025 • 8:12AM", amount: "-$14", credit: false },
+  { label: "Transfer from Tochukwu", date: "Tue, Feb 7, 2025 • 11:50PM", amount: "$850.89", credit: true },
+]
+
 export default function CardPanel() {
     return (
     <div>
@@ -29,7 +35,6 @@ export default function CardPanel() {
             </div>
           </div>
 
-          {/* card transactions */}
           <div className="flex items-center justify-between mb-3 pt-4">
             <p className="text-sm font-semibold text-foreground">
               Card transactions
@@ -38,17 +43,12 @@ export default function CardPanel() {
               See all
             </button>
           </div>
-
-          {/* transaction items */}
-          {[
-            { label: "Transfer to Ruth", date: "Fri, Apr 18, 2025 • 7:32PM", amount: "-$7.64", credit: false },
-            { label: "Wallet to wallet", date: "Sat, Mar 2, 2025 • 8:12AM", amount: "-$14", credit: false },
-            { label: "Transfer from Tochukwu", date: "Tue, Feb 7, 2025 • 11:50PM", amount: "$850.89", credit: true },
-          ].map((item, index) => (
+ 
+          {CardTransaction.map((item, index) => (
             <div key={index} className="flex items-center justify-between py-2.5 border-b border-gray-50">
               <div className="flex items-center gap-3 py-2">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center
-                  ${item.credit ? "bg-green-50" : "bg-red-50"}`}
+                  ${item.credit ? "bg-green-50" : "bg-orange-50"}`}
                 >
                   {item.credit
                     ? <ImportCircle size={14} color="#16a34a" variant="Linear" />
@@ -66,7 +66,6 @@ export default function CardPanel() {
             </div>
           ))}
 
-          {/* Card transaction Flows */}
           <div className="mt-7">
             <div className="flex items-center justify-between mb-10">
               <p className="text-sm font-semibold text-foreground">
@@ -75,7 +74,6 @@ export default function CardPanel() {
               <p className="text-sm font-bold text-green-600">+$3,048.00</p>
             </div>
 
-            {/* money in */}
             <div className="mb-9 px-4">
               <div className="flex justify-between mb-1">
                 <p className="text-xs text-black-400">Money in</p>
@@ -86,7 +84,6 @@ export default function CardPanel() {
               </div>
             </div>
 
-            {/* money out */}
             <div className="mb-9 px-4">
               <div className="flex justify-between mb-1">
                 <p className="text-xs text-black-400">Money out</p>

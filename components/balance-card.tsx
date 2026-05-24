@@ -16,8 +16,6 @@ export default function BalanceCard() {
 
   return (
         <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6">
-
-          {/* tabs */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex gap-2">
               {(["bought", "sold", "others"] as FXTab[]).map((tab) => (
@@ -35,14 +33,13 @@ export default function BalanceCard() {
               ))}
             </div>
 
-            {/* currency type*/}
+            {/* currency */}
             <div className="flex items-center gap-2 bg-gray-800 text-white text-sm px-3 py-1.5 rounded-full">
-              <span>🇺🇸</span> {/* should be flag */}
+              <span>🇺🇸</span> 
               <span>USD</span>
             </div>
           </div>
 
-          {/* Balance */}
           <div className="min-w-[590] mb-6">
             <div className="flex items-center gap-2 mb-1">
               <p className="text-sm text-black-400">Total FX units</p>
@@ -58,7 +55,6 @@ export default function BalanceCard() {
             </p>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-3">
             <button className="flex flex-col items-center gap-2 p-3 rounded-xl border border-gray-100 hover:border-brand hover:bg-orange-50 transition-colors max-w-[80px] max-h-[80px]">
               <WalletMinus size={20} color="#697698" variant="Linear" />
@@ -73,7 +69,6 @@ export default function BalanceCard() {
               <span className="text-xs text-black-400 font-medium">Receive money</span>
             </button>
           </div>
-
         </div>
   )
 }
