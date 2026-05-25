@@ -37,5 +37,13 @@ export async function POST(request: NextRequest) {
     path: "/",
   })
 
+  const newExpiresAt = Date.now() + 120 * 1000
+  response.cookies.set("expires_at", newExpiresAt.toString(), {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  path: "/",
+})
+
   return response
 }

@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json()
   const { email, password } = body
-  const expiresAt = Date.now() + 60 * 1000;
+  const expiresAt = Date.now() + 120 * 1000;
 
   if (!email || !password) {
     return NextResponse.json(

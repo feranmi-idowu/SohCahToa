@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse,  } from "next/server"
-import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
 
@@ -13,19 +12,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  if (accessToken) {
+  if (accessToken && !isExpired) {
     return NextResponse.next()
   }
 
-  
-if (!accessToken || !expiresAt) {
-    return NextResponse.redirect(
-      new URL("/login", request.url)
-    );
-  }
-
-
-  if (isExpired) {
+  if (refreshToken) {
     try {
       const refreshResponse = await fetch(
         new URL("/api/auth/refresh", request.url),
@@ -38,23 +29,25 @@ if (!accessToken || !expiresAt) {
       )
 
       if (refreshResponse.ok) {
-        const response = NextResponse.next()
         const data = await refreshResponse.json()
+        const response = NextResponse.next()
+
+        const newExpiresAt = Date.now() + 120 * 1000
 
         response.cookies.set("accessToken", data.accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
-          maxAge: 3600,
+          maxAge: 120,
           path: "/",
         })
 
-        response.cookies.set("expires_at", expiresAt.toString(), {
-          httpOnly: true,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        });
+        response.cookies.set("expires_at", newExpiresAt.toString(), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+        })
 
         return response
       }
@@ -69,6 +62,7 @@ if (!accessToken || !expiresAt) {
 
   response.cookies.delete("accessToken")
   response.cookies.delete("refreshToken")
+  response.cookies.delete("expires_at")
 
   return response
 }

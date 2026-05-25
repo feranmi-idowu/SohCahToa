@@ -43,7 +43,7 @@ export default function LoginPage() {
         setError(errorData.error)
         return
       }
-      
+
       localStorage.setItem("userRole", data.user.role)
       router.push("/dashboard")
 
@@ -60,7 +60,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex">
       <div className="hidden md:flex w-1/2 bg-brand flex-col items-center justify-center p-12">
         <h1 className="text-white text-4xl font-bold">SohCahToa</h1>
-        <p className="text-white/80 text-lg mt-4">Payout BDC</p>
+        <p className="text-white/80 text-lg mt-">Payout BDC</p>
         <p className="text-white/60 text-sm mt-8 text-center max-w-xs">
           Secure foreign exchange and transaction monitoring platform.
         </p>
