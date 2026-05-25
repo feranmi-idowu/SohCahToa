@@ -6,10 +6,9 @@ import {
   ImportCircle,
   Repeat,
   Flag,
-  CloseCircle,
-  TickCircle
 } from "iconsax-react"
 import { PaginatedTransactions, Transaction } from "@/lib/types"
+import TransactionDetailPanel from "./transaction-detail-panel"
 
 type Tab = "all" | "fx" | "pta" | "bta" | "medicals"
 
@@ -21,7 +20,6 @@ const TABS: { label: string; value: Tab }[] = [
   { label: "Medicals", value: "medicals" },
 ]
 
-// Hardcoded role for now  in real app comes from auth context
 const USER_ROLE = "admin"
 
 export default function TransactionTable() {
@@ -30,7 +28,6 @@ export default function TransactionTable() {
   const [error, setError] = useState("")
   const [page, setPage] = useState(1)
   const [activeTab, setActiveTab] = useState<Tab>("all")
-  // Detail panel
   const [selected, setSelected] = useState<Transaction | null>(null)
   const [flagLoading, setFlagLoading] = useState(false)
   const [flagError, setFlagError] = useState("")
@@ -219,7 +216,6 @@ export default function TransactionTable() {
                 </div>
               </div>
 
-              {/* Amount */}
               <p className={`text-sm font-semibold
                 ${txn.type === "credit" ? "text-green-600" : "text-foreground"}`}
               >
@@ -230,7 +226,6 @@ export default function TransactionTable() {
         </div>
       )}
 
-      {/* Pagination */}
       {data && data.totalPages > 1 && (
         <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-50">
           <p className="text-xs text-gray-400">
@@ -254,114 +249,16 @@ export default function TransactionTable() {
           </div>
         </div>
       )}
-
-      {/* Detail Panel — slides in when transaction selected */}
+      
       {selected && (
-        <div className="fixed inset-0 z-50 flex justify-end">
-
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/20"
-            onClick={() => setSelected(null)}
-          />
-
-          {/* Panel */}
-          <div className="relative bg-white w-full max-w-sm h-full shadow-xl p-6 overflow-y-auto">
-
-            {/* Panel Header */}
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-base font-bold text-foreground">
-                Transaction Details
-              </h3>
-              <button
-                onClick={() => setSelected(null)}
-                className="text-gray-400 hover:text-foreground transition-colors"
-              >
-                <CloseCircle size={20} variant="Bold" />
-              </button>
-            </div>
-
-            {/* Amount */}
-            <div className={`rounded-xl p-4 mb-6 text-center
-              ${selected.type === "credit" ? "bg-green-50" : "bg-orange-50"}`}
-            >
-              <p className={`text-3xl font-bold
-                ${selected.type === "credit" ? "text-green-600" : "text-foreground"}`}
-              >
-                {selected.type === "credit" ? "+" : "-"}${selected.amount.toFixed(2)}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">{selected.currency}</p>
-            </div>
-
-            {/* Details */}
-            <div className="flex flex-col gap-4 mb-6">
-              {[
-                { label: "Recipient", value: selected.recipient },
-                { label: "Date", value: new Date(selected.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" }) },
-                { label: "Time", value: new Date(selected.date).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }) },
-                { label: "Transaction ID", value: selected.id },
-                { label: "Type", value: selected.type === "credit" ? "Money In" : "Money Out" },
-              ].map((item) => (
-                <div key={item.label} className="flex justify-between items-start">
-                  <p className="text-xs text-gray-400">{item.label}</p>
-                  <p className="text-xs font-medium text-foreground text-right max-w-[60%]">
-                    {item.value}
-                  </p>
-                </div>
-              ))}
-
-              {/* Status Badge */}
-              <div className="flex justify-between items-center">
-                <p className="text-xs text-gray-400">Status</p>
-                <span className={`text-xs px-2 py-1 rounded-full font-medium
-                  ${selected.status === "completed"
-                    ? "bg-green-50 text-green-600"
-                    : selected.status === "pending"
-                    ? "bg-yellow-50 text-yellow-600"
-                    : "bg-red-50 text-red-600"
-                  }`}
-                >
-                  {selected.status}
-                </span>
-              </div>
-            </div>
-
-            {/* Flag Error */}
-            {flagError && (
-              <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200">
-                <p className="text-red-600 text-xs">{flagError}</p>
-              </div>
-            )}
-
-            {/* Flag Button — Admin Only */}
-            {USER_ROLE === "admin" && (
-              <button
-                onClick={() => handleFlag(selected)}
-                disabled={flagLoading}
-                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-medium text-sm transition-colors disabled:opacity-50
-                  ${selected.isFlagged
-                    ? "bg-red-50 text-red-600 hover:bg-red-100 border border-red-200"
-                    : "bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200"
-                  }`}
-              >
-                {selected.isFlagged ? (
-                  <>
-                    <TickCircle size={16} variant="Bold" color="#dc2626" />
-                    {flagLoading ? "Removing flag..." : "Remove Flag"}
-                  </>
-                ) : (
-                  <>
-                    <Flag size={16} variant="Bold" color="#6b7280" />
-                    {flagLoading ? "Flagging..." : "Flag Transaction"}
-                  </>
-                )}
-              </button>
-            )}
-
-          </div>
-        </div>
+        <TransactionDetailPanel
+          transaction={selected}
+          onClose={() => setSelected(null)}
+          onFlag={handleFlag}
+          flagLoading={flagLoading}
+          flagError={flagError}
+        />
       )}
-
     </div>
   )
 }

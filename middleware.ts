@@ -5,9 +5,8 @@ export async function middleware(request: NextRequest) {
 
   const accessToken = request.cookies.get("accessToken")?.value
   const refreshToken = request.cookies.get("refreshToken")?.value
-  const expiresAt = Date.now() + 60 * 1000;
-  request.cookies.get("expires_at")?.value;
-  const isExpired = Date.now() > Number(expiresAt);
+  const expiresAt = request.cookies.get("expires_at")?.value
+  const isExpired = Date.now() > Number(expiresAt ?? 0)
 
   const isProtectedRoute = request.nextUrl.pathname.startsWith("/dashboard")
   if (!isProtectedRoute) {

@@ -43,7 +43,8 @@ export default function LoginPage() {
         setError(errorData.error)
         return
       }
-
+      
+      localStorage.setItem("userRole", data.user.role)
       router.push("/dashboard")
 
     } catch (err) {

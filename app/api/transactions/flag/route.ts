@@ -3,7 +3,6 @@ import { TRANSACTIONS } from "@/lib/mock-data"
 
 export async function PATCH(request: NextRequest) {
 
-   //Check auth cookie
   const accessToken = request.cookies.get("accessToken")?.value
 
   if (!accessToken) {
@@ -13,9 +12,8 @@ export async function PATCH(request: NextRequest) {
     )
   }
 
-  //  Read request body
   const body = await request.json()
-  const { transactionId, isFlagged } = body
+  const { transactionId, isFlagged, note} = body
 
   if (!transactionId) {
     return NextResponse.json(
@@ -24,7 +22,6 @@ export async function PATCH(request: NextRequest) {
     )
   }
 
-  // Find the transaction
   const transaction = TRANSACTIONS.find(
     (t) => t.id === transactionId
   )
@@ -36,9 +33,14 @@ export async function PATCH(request: NextRequest) {
     )
   }
 
-  // Update the transaction
-  transaction.isFlagged = isFlagged
-  transaction.status = isFlagged ? "flagged" : "completed"
+  if (typeof isFlagged === "boolean") {
+    transaction.isFlagged = isFlagged
+    transaction.status = isFlagged ? "flagged" : "completed"
+  }
+
+  if (typeof note === "string") {
+    transaction.note = note
+  }
 
   return NextResponse.json({
     success: true,
