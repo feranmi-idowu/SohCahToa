@@ -115,12 +115,11 @@ No separate CSRF token is needed because `sameSite: "strict"` provides equivalen
 
 
 ## Role Based Access Control
-| Feature | Admin | Analyst |
-|---|---|---|
-| View transactions | ✅ | ✅ |
-| View transaction detail | ✅ | ✅ |
-| Flag transaction | ✅ | ❌ |
-| Unflag transaction | ✅ | ❌ |
+|          Feature        | Admin | Analyst |
+|    View transactions    |    ✅ |    ✅ |
+| View transaction detail |    ✅ |    ✅ |
+|     Flag transaction    |    ✅ |    ❌ |
+|    Unflag transaction   |    ✅ |    ❌ |
 
 Implementation: `USER_ROLE` check in `transaction-table.tsx` hides the flag button entirely for non-admin users. The `/api/transactions/flag` route also validates the auth cookie server-side before processing.
 
