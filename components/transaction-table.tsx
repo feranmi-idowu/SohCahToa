@@ -9,6 +9,7 @@ import {
 } from "iconsax-react"
 import { PaginatedTransactions, Transaction } from "@/lib/types"
 import TransactionDetailPanel from "./transaction-detail-panel"
+import FilterDropdown from "./filter-dropdown"
 
 type Tab = "all" | "fx" | "pta" | "bta" | "medicals"
 
@@ -31,6 +32,8 @@ export default function TransactionTable() {
   const [selected, setSelected] = useState<Transaction | null>(null)
   const [flagLoading, setFlagLoading] = useState(false)
   const [flagError, setFlagError] = useState("")
+  const [statusFilter, setStatusFilter] = useState<string>("all")
+ 
 
   useEffect(() => {
     async function fetchTransactions() {
@@ -39,7 +42,7 @@ export default function TransactionTable() {
         const params = new URLSearchParams({
           page: String(page),
           pageSize: "5",
-          status: "all",
+          status: statusFilter,
         })
         const res = await fetch(`/api/transactions?${params}`, {cache: "no-store"})
         const json = await res.json()
@@ -51,7 +54,7 @@ export default function TransactionTable() {
       }
     }
     fetchTransactions()
-  }, [page])
+  }, [page, statusFilter])
 
   // Flag / Unflag transaction
   async function handleFlag(transaction: Transaction) {
@@ -122,9 +125,21 @@ export default function TransactionTable() {
         <h2 className="text-sm font-semibold text-foreground">
           FX transactions
         </h2>
-        <button className="text-xs text-gray-500 border border-gray-200 px-3 py-1.5 rounded-lg hover:border-brand hover:text-brand transition-colors">
-          See all
-        </button>
+        <FilterDropdown
+          value={statusFilter}
+          onChange={(val) => {
+          setStatusFilter(val)
+          setPage(1)
+          }}
+          placeholder="See all"
+          options={[
+                      { label: "See all", value: "all" },
+                      { label: "Completed", value: "completed", color: "bg-green-500" },
+                      { label: "Pending", value: "pending", color: "bg-yellow-500" },
+                      { label: "Flagged", value: "flagged", color: "bg-red-500" },
+                    ]}
+          />
+
       </div>
 
       <div className="flex gap-2 mb-6">
