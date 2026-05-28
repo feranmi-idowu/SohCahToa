@@ -9,6 +9,7 @@ import {
   Repeat,
   Card,
   MessageQuestion,
+  ArrowDown2,
 } from "iconsax-react"
 
 type NavItem = {
@@ -28,13 +29,15 @@ export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-56 min-h-screen bg-white border-r border-gray-100 flex flex-col py-6 px-4">
+    <aside className="max-w-65 min-h-screen bg-white border-r border-gray-100 flex flex-col py-6 px-4">
       <div className="mb-10 px-2">
         <Image 
         src="/images/logo.png"
         alt="Company's Logo"
         width={108}
         height={44}
+        className="w-auto h-auto"
+        loading="eager"
         />
       </div>
       
@@ -68,6 +71,34 @@ export default function Sidebar() {
           <MessageQuestion size={18} variant="Linear" color="#6b7280" />
           <span>Support</span>
         </Link>
+        <div className="flex items-center max-w-57 h-16 p-[10px_12px] rounded-[15px] border border-[#E4E4E7] shadow-[0px_2px_2px_0px_#2323230D] gap-[10px]" >
+          <div className="flex items-center gap-3">
+          <div className="w-11 h-11 relative shrink-0">
+            <Image 
+              src="/images/profile.jpg"
+              alt="Emmanuel Israel"
+              fill
+              sizes="44px"
+              loading="eager"
+              className="rounded-[28px] w-auto h-auto object-cover"
+            />
+          </div>
+          <div className="flex items-center flex-col">
+            <p className="text-[14px] font-semibold text-[#1F1F1F] leading-tight">
+              Emmanuel Israel
+            </p>
+            <p className="max-w-30 overflow-hidden text-ellipsis whitespace-nowrap text-[14px] font-normal leading-[120%] text-[#666666]">
+              emmanuel.e.israel@gmail.com
+            </p>
+          </div>
+          <div>
+            <ArrowDown2 size={12} variant="Linear" color="#8C8C8C" />
+          </div>
+        </div>
+        
+        
+        </div>
+        
       </div>
 
     </aside>

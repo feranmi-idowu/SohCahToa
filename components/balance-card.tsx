@@ -15,7 +15,7 @@ export default function BalanceCard() {
   const [balanceVisible, setBalanceVisible] = useState(true)
 
   return (
-        <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6">
+        <div className="wit-full h-fit bg-white rounded-xl border border-gray-100 p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex gap-2">
               {(["bought", "sold", "others"] as FXTab[]).map((tab) => (

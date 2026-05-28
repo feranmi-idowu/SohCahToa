@@ -10,7 +10,7 @@ export default function CardPanel() {
     return (
     <div>
       
-        <div className="min-w-[480] shrink-0">
+        <div className="w-fit h-fill grow max-w-121.5">
         <div className="bg-white rounded-xl border border-gray-100 p-6">
           <p className="text-sm font-semibold text-foreground mb-4">Cards</p>
 
@@ -33,9 +33,10 @@ export default function CardPanel() {
                 <p className="text-xs opacity-80">Emmanuel Israel</p>
               </div>
             </div>
-          </div>
+          </div> 
 
-          <div className="flex items-center justify-between mb-3 pt-4">
+          <div className="w-ful h-fit">
+            <div className="flex items-center justify-between mb-3 pt-4">
             <p className="text-sm font-semibold text-foreground">
               Card transactions
             </p>
@@ -45,7 +46,7 @@ export default function CardPanel() {
           </div>
  
           {CardTransaction.map((item, index) => (
-            <div key={index} className="flex items-center justify-between py-2.5 border-b border-gray-50">
+            <div key={index} className="flex items-center justify-between py-2.5 border-b border-gray-50 w-fill h-fit">
               <div className="flex items-center gap-3 py-2">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center
                   ${item.credit ? "bg-green-50" : "bg-orange-50"}`}
@@ -65,8 +66,11 @@ export default function CardPanel() {
               </p>
             </div>
           ))}
+          </div>
 
-          <div className="mt-7">
+          
+
+          <div className="mt-7 w-116.5 h-62.4">
             <div className="flex items-center justify-between mb-10">
               <p className="text-sm font-semibold text-foreground">
                 Card transaction flows

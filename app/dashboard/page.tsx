@@ -8,10 +8,10 @@ import CardPanel from "@/components/card-panel"
 
 export default function DashboardPage() {
   return (
-    <div>
+    <div className="max-w-295 ">
       <Header />
-      <div className="flex gap-6">
-        <div className="flex-1">
+      <div className=" px-6 pb-11.5 flex gap-6 box-border">
+        <div className="flex-1 max-w-150">
           <BalanceCard />
           <TransactionTable />
         </div>

@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   experimental: {
     optimizePackageImports: ['iconsax-react'],
-  }
+  },
+  turbopack: {
+    resolveExtensions: ['.tsx', '.ts', '.jsx', '.js'],
+  },
 };
 
 export default nextConfig;
-
