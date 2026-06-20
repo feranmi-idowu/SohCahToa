@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import FormField from "@/components/form-field"
 
 //setting the form type
 type LoginForm = {
@@ -13,6 +14,7 @@ type LoginForm = {
 type ApiError = {
   error: string
 }
+
 
 export default function LoginPage() {
   const router = useRouter()
@@ -54,7 +56,10 @@ export default function LoginPage() {
     }
   }
 
-
+  function handleChange(field: keyof LoginForm) {
+    return (e: React.ChangeEvent<HTMLInputElement>) =>
+      setForm({ ...form, [field]: e.target.value })
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -81,31 +86,22 @@ export default function LoginPage() {
             </div>
           )}
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-foreground mb-2">
-              Email address
-            </label>
-            <input
-              type="email"
-              placeholder="emmanuel@example.com"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-brand text-foreground"
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-foreground mb-2">
-              Password
-            </label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-brand text-foreground"
-            />
-          </div>
 
+<FormField
+  label="Email address"
+  type="email"
+  placeholder="emmanuel@example.com"
+  value={form.email}
+  onChange={handleChange("email")}
+/>
+<FormField
+  label="Password"
+  type="password"
+  placeholder="••••••••"
+  value={form.password}
+  onChange={handleChange("password")}
+  marginClass="mb-6"
+/>
           <button 
             onClick={handleSubmit}
             disabled={loading}

@@ -1,3 +1,4 @@
+
 export type TransactionStatus = "completed" | "pending" | "flagged"
 
 export type Transaction = {
@@ -23,4 +24,13 @@ export type PaginatedTransactions = {
 export type User = {
   id: string
   role: "admin" | "analyst"
+}
+
+export type LoginFormTypes =  {
+    label: string;
+    type?: string;
+    placeholder?: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    marginClass?: string;
 }

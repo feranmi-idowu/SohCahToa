@@ -68,8 +68,6 @@ export default function CardPanel() {
           ))}
           </div>
 
-          
-
           <div className="mt-7 w-116.5 h-62.4">
             <div className="flex items-center justify-between mb-10">
               <p className="text-sm font-semibold text-foreground">
