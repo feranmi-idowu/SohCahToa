@@ -215,7 +215,7 @@ export default function TransactionTable() {
                       <Flag size={12} color="#dc2626" variant="Bold" />
                     )}
                   </div>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-400 mt-0.5 font-geist">
                     {new Date(txn.date).toLocaleDateString("en-US", {
                       weekday: "short",
                       month: "short",

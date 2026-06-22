@@ -12,25 +12,25 @@ export default function CardPanel() {
       
         <div className="w-fit h-fill grow max-w-121.5">
         <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <p className="text-sm font-semibold text-foreground mb-4">Cards</p>
+          <p className="text-sm font-semibold text-foreground mb-4 font-geist">Cards</p>
 
           {/* visa card */}
           <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl p-4 text-white mb-4">
             <div className="flex items-center justify-between mb-6">
-              <span className="text-xs opacity-80">Prepaid card</span>
+              <span className="text-xs opacity-80 font-geist">Prepaid card</span>
               <span className="font-bold text-lg">VISA</span>
             </div>
             <div className="mb-4">
-              <p className="text-sm opacity-80">•••• •••• •••• 7093</p>
+              <p className="text-sm opacity-80 font-geist">•••• •••• •••• 7093</p>
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs opacity-60">VALID THRU</p>
-                <p className="text-sm font-medium">08/27</p>
+                <p className="text-xs opacity-60 font-geist">VALID THRU</p>
+                <p className="text-sm font-medium font-geist">08/27</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold">$3,048.00</p>
-                <p className="text-xs opacity-80">Emmanuel Israel</p>
+                <p className="text-lg font-bold font-geist ">$3,048.00</p>
+                <p className="text-xs opacity-80 font-geist">Emmanuel Israel</p>
               </div>
             </div>
           </div> 
@@ -57,8 +57,8 @@ export default function CardPanel() {
                   }
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                  <p className="text-xs text-gray-400">{item.date}</p>
+                  <p className="text-sm font-semibold text-foreground font-geist">{item.label}</p>
+                  <p className="text-xs text-gray-400 font-geist">{item.date}</p>
                 </div>
               </div>
               <p className={`text-sm font-semibold ${item.credit ? "text-green-600" : "text-foreground"}`}>
@@ -73,7 +73,7 @@ export default function CardPanel() {
               <p className="text-sm font-semibold text-foreground">
                 Card transaction flows
               </p>
-              <p className="text-sm font-bold text-green-600">+$3,048.00</p>
+              <p className="text-sm font-bold text-green-600 font-space-grotesk">+$3,048.00</p>
             </div>
 
             <div className="mb-9 px-4">

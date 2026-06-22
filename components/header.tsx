@@ -34,9 +34,9 @@ export default function Header() {
           <input 
             type="text" 
             placeholder="Search" 
-            className="pl-9 pr-12 py-2 w-64 bg-transparent border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-400"
+            className="pl-9 pr-12 py-2 w-64 bg-transparent border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-400 font-geist"
           />
-          <span className="absolute right-3 text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200">
+          <span className="absolute right-3 text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded border border-gray-200 font-geist">
             ⌘K
           </span>
         </div>

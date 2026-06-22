@@ -50,7 +50,7 @@ export default function BalanceCard() {
                 <Eye size={16} color="#697698" variant="Linear" />
               </button>
             </div>
-            <p className="text-3xl font-bold text-foreground">
+            <p className="text-3xl font-bold text-foreground font-space-grotesk ">
               {balanceVisible ? "$ 67,048.00" : "$ ••••••"}
             </p>
           </div>

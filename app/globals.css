@@ -12,10 +12,12 @@
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
   --color-brand-hover: var(--brand-hover);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-geist: var(--font-geist);
 }
 
 body {
   background: #ffffff;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter) Arial, Helvetica, sans-serif;
 }
