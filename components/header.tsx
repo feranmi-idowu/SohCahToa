@@ -4,7 +4,7 @@ import { SearchNormal1, Notification } from "iconsax-react"
 
 export default function Header() {
   return (
-    <div className="flex items-center justify-between max-w-295  mb-6 bg-white">
+    <div className="flex items-center justify-between max-w-295  mb-6 bg-[#FAFAFA]">
       <div className="pl-2 m-4  flex items-center gap-3">
         <div className="w-11 h-11 relative shrink-0">
           <Image 

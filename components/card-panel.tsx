@@ -1,4 +1,4 @@
-import { ImportCircle, ExportCircle } from "iconsax-react";
+import { ImportCircle, ExportCircle, Add } from "iconsax-react";
 
 const CardTransaction = [
   { label: "Transfer to Ruth", date: "Fri, Apr 18, 2025 • 7:32PM", amount: "-$7.64", credit: false },
@@ -14,26 +14,31 @@ export default function CardPanel() {
         <div className="bg-white rounded-xl border border-gray-100 p-6">
           <p className="text-sm font-semibold text-foreground mb-4 font-geist">Cards</p>
 
-          {/* visa card */}
-          <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl p-4 text-white mb-4">
-            <div className="flex items-center justify-between mb-6">
-              <span className="text-xs opacity-80 font-geist">Prepaid card</span>
-              <span className="font-bold text-lg">VISA</span>
-            </div>
-            <div className="mb-4">
-              <p className="text-sm opacity-80 font-geist">•••• •••• •••• 7093</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs opacity-60 font-geist">VALID THRU</p>
-                <p className="text-sm font-medium font-geist">08/27</p>
+          <div className="flex flex-row gap-9">
+            {/* visa card */}
+            <div className="bg-gradient-to-br w-91 from-orange-400 to-orange-600 rounded-xl p-4 text-white  h-full  flex-1">
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs opacity-80 font-geist">Prepaid card</span>
+                <span className="font-bold text-lg">VISA</span>
               </div>
-              <div className="text-right">
-                <p className="text-lg font-bold font-geist ">$3,048.00</p>
-                <p className="text-xs opacity-80 font-geist">Emmanuel Israel</p>
+              <div className="mt-6">
+                <p className="text-sm opacity-80 font-geist">•••• •••• •••• 7093</p>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs opacity-60 font-geist">VALID THRU</p>
+                  <p className="text-sm font-medium font-geist">08/27</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-lg font-bold font-geist ">$3,048.00</p>
+                  <p className="text-xs opacity-80 font-geist">Emmanuel Israel</p>
+                </div>
               </div>
             </div>
-          </div> 
+            <button className="border-[#232323] border rounded-[20px] border-dashed w-[60px] justify-items-center ">
+            < Add size={24} color="#232323" variant="Linear" />
+            </button>
+          </div>
 
           <div className="w-ful h-fit">
             <div className="flex items-center justify-between mb-3 pt-4">
@@ -68,7 +73,7 @@ export default function CardPanel() {
           ))}
           </div>
 
-          <div className="mt-7 w-116.5 h-62.4">
+          <div className="mx-auto mt-7 w-fill h-62.4">
             <div className="flex items-center justify-between mb-10">
               <p className="text-sm font-semibold text-foreground">
                 Card transaction flows
